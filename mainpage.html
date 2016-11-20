@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>리드테일</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="http://roboto-webfont.googlecode.com/svn/trunk/roboto.all.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.event.drag-1.5.min.js">
+    </script>
+    <script type="text/javascript" src="./js/jquery.touchSlider.js">
+    </script>
+
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <style>
+        /* all */
+        
+        ::-webkit-input-placeholder {
+            color: #fff;
+        }
+        
+        ::-moz-placeholder {
+            color: #fff;
+        }
+        /* firefox 19+ */
+        
+        :-ms-input-placeholder {
+            color: #fff;
+        }
+        /* ie */
+        
+        input:-moz-placeholder {
+            color: #fff;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 0px;
+            height: 0px;
+            border: 0px solid red;
+        }
+        /* Chrome, Safari용 스크롤 바 */
+        
+        input:focus {
+            outline: none;
+        }
+        
+        .navbar {
+            background-color: transparent;
+            border-radius: 0px;
+            border-bottom: 0px;
+        }
+        
+        .nav-tabs {
+            background-color: #31C9CE;
+            border-radius: 0px;
+            border-bottom: 0px;
+        }
+        
+        .tab-content {
+            background-color: #fff;
+            color: #303136;
+            padding: 5px;
+            border-radius: 0px;
+            margin-top: 44px;
+            height: *;
+            overflow-x: hidden;
+        }
+        
+        .nav-tabs > li > a {
+            border-bottom: 0px;
+            color: #fff;
+        }
+        
+        .nav-tabs > li > a:hover {
+            border-bottom: 0px;
+            background-color: #31C9CE;
+        }
+        
+        .nav-tabs.nav-justified>.active>a,
+        .nav-tabs.nav-justified>.active>a:focus,
+        .nav-tabs.nav-justified>.active>a:hover {
+            border: 1px solid transparent;
+            background-color: #AFEAEE;
+        }
+        
+        .nav-tabs.nav-justified {
+            width: 100%;
+            border-bottom: 0px;
+            border-radius: 0px;
+        }
+        
+        .nav-tabs.nav-justified > li {
+            display: table-cell;
+            float: none;
+            width: 1%;
+            border-radius: 0px;
+            border-bottom: 0px;
+            border-color: #31C9CE;
+        }
+        
+        .nav-tabs.nav-justified > li > a {
+            text-align: center;
+            border-radius: 0px;
+            border-bottom: 0px;
+            border-color: #31C9CE;
+        }
+        
+        .nav-tabs.nav-justified > li > a:link {
+            text-align: center;
+            border-radius: 0px;
+            border-bottom: 0px;
+        }
+        
+        .navbar-setting {
+            float: right;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+        }
+        
+        #hashtopbox {
+            background: url("./images/hashtopbg.jpg") center;
+            background-size: 100% 100%;
+            width: 100%;
+            height: 120px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        #mytopbox {
+            background: url("./images/hashtopbg.jpg") center;
+            background-size: 100% 100%;
+            padding-top: 0px;
+            margin-top: 0px;
+            width: 100%;
+            height: 170px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .bgBlur:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            z-index: -1;
+            filter: blur(4px);
+            -webkit-filter: blur(4px);
+            -moz-filter: blur(3px);
+            -o-filter: blur(4px);
+            -ms-filter: blur(4px);
+        }
+        
+        svg {
+            height: 0;
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .sub_theme {
+            text-align: center;
+            margin-bottom: 5px;
+            margin-top: -5px;
+        }
+        
+        .btn {
+            border-radius: 0px;
+        }
+        
+        .hash {
+            background-color: #91E2E5;
+            border: 0px;
+            color: #fff;
+        }
+        
+        .myreed-nav-li {
+            float: left;
+            width: 33.3%;
+            height: 33px;
+            text-align: center;
+            border-width: 0px 0px 4px 0px;
+            border-style: solid;
+            border-color: transparent;
+            font-weight: bold;
+            color: #A6A6A6;
+        }
+        
+        .search-nav-li {
+            float: left;
+            width: 50%;
+            height: 33px;
+            text-align: center;
+            border-width: 0px 0px 0px 0px;
+            border-style: solid;
+            font-weight: bold;
+            color: #A6A6A6;
+        }
+        
+        .tag_box {
+            margin-right: 10px;
+            border-width: 0px;
+            border-style: solid;
+            border-radius: 1px;
+            border-color: #1C9495;
+            background-color: #1C9495;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 2px 2px 2px;
+        }
+        
+        .thumbnail {
+            border-radius: 0px;
+            border-color: #fff;
+        }
+        
+        .thumbnail2 {
+            border-width: 5px;
+            border-style: solid;
+            border-color: #fff;
+        }
+        
+        #recent_fabular_txtBox {
+            width: 100%;
+            height: 40px;
+            background-color: #FCFCFC;
+            border-width: 0px;
+            border-style: solid;
+            border-color: #FFF;
+            padding-top: 10px;
+        }
+        
+        #recent_heart_text {
+            float: left;
+            width: 100px;
+            height: 100%;
+            text-align: center;
+            border-width: 0px;
+            color: #A6A6A6;
+        }
+        
+        #fabular_heart_text {
+            float: left;
+            width: 100px;
+            height: 100%;
+            text-align: center;
+            border-width: 0px;
+            color: #D2D2D2;
+        }
+        
+        .modify_img_iconBox {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 25px;
+            height: 25px;
+            background-color: rgba( 0, 0, 0, 0.3);
+            padding-top: 2px;
+            margin-top: 5px;
+        }
+        
+        .img-circular {
+            width: 50px;
+            height: 50px;
+            background-image: url("./images/hashtopbg.jpg");
+            background-size: cover;
+            display: block;
+            border-radius: 100px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+        }
+        
+        #mask {
+            position: absolute;
+            z-index: 9000;
+            background-color: #EAEAEA;
+            display: none;
+            left: 0;
+            top: 0;
+        }
+        
+        .centerTitle {
+            position: relative;
+            display: none;
+            text-align: center;
+            padding: 7px 10px;
+            text-transform: uppercase;
+            background-color: rgba(140, 140, 140, 0.7);
+            font-weight: bold;
+            color: #fff;
+            font-size: 13px;
+            margin: 0;
+        }
+        
+        .centerTitle_layout {
+            position: absolute;
+            left: 0;
+            top: 40%;
+            width: 100%;
+            text-align: center;
+        }
+        
+    
+    </style>
+
+
+
+
+    <script type="text/javascript">
+        // ----------------   전역변수 설정  -------------------------------
+        var write_box_flag = "false";
+        var tab_readbox_flag = "false";
+        var diff = ""; // 클릭시간차
+        var alarm_item_flag = "false";
+        var tagList_item_flag = "false";
+        var heartList_item_flag = "false";
+        var bundle_item_flag = "false";
+        var view_bundle_from_readPage_flag = "false";
+        var myreed_tab_flag = "false";
+        var tag_box_flag = "false";
+        var user_box_flag = "false";
+        var clicMainContent_flag = "false";
+        var tag_box_text = "";
+        var mytopbox_title = "";
+        var window_height = $(window).height();
+        var window_width = $(window).width();
+        var thums_li_width;
+        var thums_li_height;
+
+
+
+        //------------ EVENT: 글쓰기에서 테마사진 골랐을때-------------------------
+        function sub_themeClick() {
+
+            toFirstSlide();
+
+            $(".tab-content").height(window_height - 80); // 탭 컨텐츠 세로 사이즈 고정 
+
+            $("#theme_galleryBox").css("display", "none"); // 테마선택 목록 숨기고
+            $("#write_box").css("display", "block"); // 내가 고른 테마로 글쓰기용 슬라이드 보이기
+            write_box_flag = "true";
+
+            $("#default-navtab").css("display", "none"); // 기본 하단탭 숨기고
+            $("#write-navtab").slideDown("fast"); // 입력용 하단탭 보이기
+
+            $("#default-header").css("display", "none"); // 설정용 네비헤더 숨기고
+
+            $("#write-theme-header").css("display", "none"); // 테마선택용 네비헤더 숨기고
+            $("#write-header").css("display", "block"); // 글쓰기용 네비헤더 보이기
+
+
+
+            $("#write_button_next").css("display", "block"); // 슬라이드 버튼(우) 보이기
+
+
+        }
+        //---------------------------------------------------------------------------
+        function backButton_inWriteHeader() { // 글쓰기화면에서 뒤로가기 버튼
+
+            if (write_box_flag == "true") {
+                write_box_flag = "false";
+                $("#write-header").css("display", "none"); // 글쓰기용 네비헤더 숨기고
+                $("#write-theme-header").css("display", "block"); // 테마선택용 네비헤더 보이기
+                $("#theme_galleryBox").css("display", "block"); // 테마선택 목록 숨기고
+                $("#write_box").css("display", "none"); // 내가 고른 테마로 글쓰기용 슬라이드 보이기
+
+
+                if (alarm_item_flag == "false" && tagList_item_flag == "false" && heartList_item_flag == "false" && view_bundle_from_readPage_flag == "false") {
+                    $("#write-navtab").css("display", "none");
+                    $("#default-navtab").css("display", "block");
+
+                } else {
+                    $("#write-navtab").css("display", "none");
+                    if ($("#back_mainButton").css("display") == "none") $("#default-navtab").css("display", "block");
+                    else $("#default-navtab").css("display", "none");
+
+
+                }
+                if ($("#default-navtab").css("display") == "none") {
+                    $(".tab-content").height(window_height - 40);
+                } else $(".tab-content").height(window_height - 85); // 탭컨텐트 사이즈                      
+            }
+
+
+
+            $("#wirte_input_box").val("");
+            $("#write_textBox1").text("");
+            $("#write_textBox2").text("");
+            $("#write_textBox3").text("");
+        }
+
+        // >>>>>>>>>>>>>>>>>>  뒤로가기 버튼 이벤트 시작 <<<<<<<<<<<<<<<<<<<<<<
+
+
+        // 이야기 테마선택 화면에서 뒤로가기 버튼
+        function backButton_inSelectThemeHeader() {
+
+            if (alarm_item_flag == "true") {
+                $("#write-theme-header").css("display", "none");
+                $("#main-container").css("display", "none");
+                $("#bundle-container").css("display", "block");
+
+            } else if (view_bundle_from_readPage_flag == "true" || clicMainContent_flag == "true") {
+
+                $("#write-theme-header").css("display", "none");
+                $("#main-container").css("display", "none");
+                $("#bundle-container").css("display", "block");
+
+            }
+
+
+            if (alarm_item_flag == "false") {
+                $("#read-header").css("display", "block");
+                $("#read-navtab-bottom").css("display", "block");
+            }
+
+        }
+
+
+        // 엮은마음 화면에서 뒤로가기 버튼
+        function backButton_inBundleHeader() {
+            bundle_item_flag = "false";
+
+
+            if (alarm_item_flag == "true" || tagList_item_flag == "true" || heartList_item_flag == "true") // 11.22 추가
+            {
+
+                alarm_item_flag = "false";
+                $("#bundle-back-button").attr("href", "#tab_myreed");
+                $(".tab_myreed").click();
+                $("#main-container").css("display", "block"); // 메인컨테이너 보이고         
+                $("#bundle-container").css("display", "none"); // 마음글 엮음 숨기고
+                $("#read-navtab-bottom").css("display", "none"); // 읽기 하단 탭 숨기기
+                $("#read-header").css("display", "none"); // 읽기 헤더 숨기기
+                $("#default-navtab").css("display", "block"); // 기본 하단탭 보이고
+                $("#default-header").css("display", "block"); // 기본헤더 보이고
+                $("#read_box").css("display", "none"); // 마음글 슬라이드 감추고 	
+                $("#main_top").css("display", "block"); // 마음글 컨텐츠 보이기
+
+            } else {
+
+                if (myreed_tab_flag == "true") {
+
+                    $("#bundle-back-button").attr("href", "#tab_myreed");
+                    $(".tab_myreed").click();
+                    $("#default-navtab").css("display", "block"); // 기본 하단탭 보이고
+                    $("#write-navtab").css("display", "none"); // 입력용 하단탭 숨기기
+                    $("#read-navtab-bottom").css("display", "none");
+                    $("#theme_galleryBox").css("display", "block"); // 테마선택 목록 보이기
+                    $("#write_box").css("display", "none"); // 내가 고른 테마로 글쓰기용 슬라이드 숨기고
+                    write_box_flag = "false";
+
+                    $("#main-container").css("display", "block");
+                    $("#bundle-container").css("display", "none");
+                } else {
+
+
+                    $("#bundle-back-button").attr("href", "#tab_main");
+                    $(".tab_main").click();
+                    $("#read-navtab-bottom").css("display", "none");
+                    $("#read-header").css("display", "none"); //글읽기헤더 숨기기
+
+                    $("#main-container").css("display", "block"); // 메인컨테이너 보이고         
+                    $("#bundle-container").css("display", "none");
+                    $("#read_box").css("display", "none");
+                    $("#main_top").css("display", "block");
+                    $("#default-navtab").css("display", "block");
+
+                    if (user_box_flag == "true") {
+                        $("#default-header").css("display", "none");
+                        $(".tab-content").css("margin-top", "-4px");
+                        $(".tab-content").height(window_height - 40);
+                    }
+
+
+                }
+
+            }
+
+        }
+
+        // 글읽기 화면에서 뒤로가기 버튼 
+        function read_backClick() {
+            $("#read_box").css("display", "none"); // 마음글 슬라이드 숨기기
+            $("#main_top").css("display", "block");
+            $("#read-navtab-bottom").css("display", "none");
+            $("#read-header").css("display", "none");
+            $("#default-navtab").css("display", "block");
+
+            if (bundle_item_flag == "true" && myreed_tab_flag == "true") {
+
+                bundle_item_flag = "false";
+
+                $("#read-header-back").attr("href", "#tab_myreed");
+                $(".tab_myreed").click(); // 마이리드 탭 클릭	 
+                $("#main-container").css("display", "none");
+                $("#bundle-container").css("display", "block");
+            } else if (bundle_item_flag == "true" && myreed_tab_flag == "false") {
+
+                $("#main-container").css("display", "none");
+                $("#bundle-container").css("display", "block");
+            } else if (tagList_item_flag == "true") {
+
+                $("#read-header-back").attr("href", "#tab_myreed");
+                tagList_item_flag = "false";
+                $(".tab_myreed").click(); // 마이리드 탭 클릭	 
+
+            } else if (heartList_item_flag == "true") {
+
+                $("#read-header-back").attr("href", "#tab_myreed");
+                heartList_item_flag = "false";
+                $(".tab_myreed").click(); // 마이리드 탭 클릭	
+            } else {
+
+                $("#read-header-back").attr("href", "#tab_main");
+                $(".tab_main").click(); // 메인 탭 클릭 
+            }
+
+
+            tagList_item_flag = "false";
+            heartList_item_flag = "false";
+            view_bundle_from_readPage_flag = "false";
+        }
+
+        // >>>>>>>>>>>>>>>>>>  뒤로가기 버튼 이벤트 끝 <<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+
+        function main_contentClick() // 읽기 화면으로
+        {
+
+            if (tag_box_flag == "true") {
+
+                $(".tab_main").click();
+                $("#main_top").css("display", "block"); // 마음글 컨텐츠 감추고
+                $("#read_box").css("display", "none"); // 마음글 슬라이드 보이기
+                $("#read-header").css("display", "none");
+                $("#read-navtab-bottom").css("display", "none");
+                $("#default-navtab").css("display", "block");
+
+
+                $("#nav_tab_myreed").removeClass("active");
+                $("#nav_tab_main").addClass("active");
+
+                $("#main_tag_title").text(tag_box_text);
+                $("#mytopbox_title").text(mytopbox_title);
+
+
+                tag_box_flag = "false";
+                tagList_item_flag = "false";
+                heartList_item_flag = "false";
+
+            } else if (user_box_flag == "true") {
+
+
+                $(".tab_main").click();
+                $("#main_top").css("display", "block"); // 마음글 컨텐츠 감추고
+                $("#read_box").css("display", "none"); // 마음글 슬라이드 보이기
+                $("#read-header").css("display", "none");
+                $("#read-navtab-bottom").css("display", "none");
+                $("#default-navtab").css("display", "block");
+
+
+                $("#nav_tab_myreed").removeClass("active");
+                $("#nav_tab_main").addClass("active");
+
+                $("#main_tag_title").text(tag_box_text);
+                $("#mytopbox_title").text(mytopbox_title);
+
+
+                user_box_flag = "false";
+                tagList_item_flag = "false";
+                heartList_item_flag = "false";
+
+            } else {
+
+                toFirstSlide();
+                $("#main_top").css("display", "none"); // 마음글 컨텐츠 감추고
+                $("#read_box").css("display", "block"); // 마음글 슬라이드 보이기 	    
+                $("#default-navtab").css("display", "none");
+                $("#write-theme-header").css("display", "none");
+
+
+                $("#default-header").css("display", "none");
+                $("#write-header").css("display", "none");
+
+                //----------- 탭 컨텐츠 세로 사이즈 조절 (풀사이즈로) ---------------
+                $(".tab-content").css("margin-top", "-7px");
+                $(".tab-content").height(window_height - 40);
+                //-------------------------------------------------------
+
+                $("#swiper-prev").css("display", "block");
+                $("#swiper-next").css("display", "block");
+                $("#swiper-prev").fadeOut(3800);
+                $("#swiper-next").fadeOut(3800);
+            }
+
+
+        }
+
+
+
+        function view_bundle_page() // 메인화면 숨기고 엮음 마금글 보이기
+        {
+            $("#main-container").css("display", "none");
+            $("#bundle-container").css("display", "block");
+        }
+
+
+        function clicMainContent() {
+
+            if ($("h3").css("display") == "none") main_contentClick();
+            else {
+                clicMainContent_flag = "true";
+                view_bundle_page();
+            }
+        }
+
+
+        $(document).ready(function () {
+
+            var write_page = 1;
+
+            var add_write_bt_margin = (window_width * 0.05) * 0.5
+
+            $('#add_write_bt').css('margin-left', add_write_bt_margin);
+            $('#add_write_bt').css('margin-right', add_write_bt_margin);
+            // ----->>>>>>>>>>>>> 공통 셋팅 <<<<<<<<<<<<<<<<<<--------------
+
+            $(".tab-content").height(window_height - 85); // 가로 800 세로 400 비율유지 
+            $("#bundle-inner-container").height(window_height - 110); // 엮은마음글 리스트 내부 컨테이너 사이즈
+
+            $("#tab_plus").removeClass("active");
+            $("#write_box").css("display", "none");
+            $("#read_box").css("display", "none");
+
+            $("#wirte_input_box_div").width(window_width - 50);
+
+            //  thumbs_li 세로길이  가로길이와 맞추기            
+            $(".thumbs_li").height(window_width * ($('.thumbs_li').width() / 100));
+            $(".thumbs_li_main").height($('.thumbs_li_main').width());
+
+
+            //------->>>>>>>>>>> 태그검색 탭 클릭 시  <<<<<<<<<<----------------
+            $(".tab_search").click(function () {
+
+                $(".tab-content").height(window_height - 40);
+                $("nav").css("display", "none");
+                $(".tab-content").css("margin-top", "-5px");
+
+            });
+
+            //------->>>>>>>>>>>   메인 탭 클릭 시   <<<<<<<<<<----------------
+            $(".tab_main").click(function () {
+
+                myreed_tab_flag = "false";
+
+                alarm_item_flag = "false";
+                tagList_item_flag = "false";
+                heartList_item_flag = "false";
+                $(".tab-content").height(window_height - 85); // 탭컨텐트 사이즈 조절
+
+                $("nav").css("display", "block");
+                $(".tab-content").css("margin-top", "44px");
+                $("#write-header").css("display", "none");
+                $("#write-theme-header").css("display", "none");
+                $("#default-header").css("display", "block");
+
+                myreed_tab_flag = "false";
+
+
+            });
+
+            //------->>>>>>>>>>>    글쓰기 nav 탭 클릭 시   <<<<<<<<<<----------------
+            $(".tab_plus").click(function () {
+
+                $("#back_mainButton").css("display", "none");
+
+                if (alarm_item_flag == "true") $("#default-navtab").css("display", "none");
+
+                if ($("#default-navtab").css("display") == "none") {
+                    $(".tab-content").height(window_height - 40);
+                } else $(".tab-content").height(window_height - 85); // 탭컨텐트 사이즈            
+
+
+                $("nav").css("display", "block");
+                $(".tab-content").css("margin-top", "44px");
+
+                $("#write-header").css("display", "block");
+                $("#default-header").css("display", "none");
+
+                $("#write-header").css("display", "none"); // 글쓰기용 네비헤더 숨기고
+                $("#write-theme-header").css("display", "block"); // 테마선택용 네비헤더 보이기
+
+                $("#wirte_input_box").val("");
+
+                if (write_box_flag == "true") $("#write_box").css("display", "block");
+                else {
+                    $("#write_box").css("display", "none");
+                    $("#theme_galleryBox").css("display", "block");
+                }
+
+                myreed_tab_flag = "false";
+
+            });
+
+
+            //------->>>>>>>>>>>   마이리드 탭 클릭 시   <<<<<<<<<<----------------
+            $(".tab_myreed").click(function () {
+
+                $("nav").css("display", "none");
+                $("#write-header").css("display", "none");
+                $("#default-header").css("display", "none");
+                $(".tab-content").css("margin-top", "50px");
+                $(".tab-content").height(window_height - 91);
+
+
+                myreed_tab_flag = "true";
+            });
+
+
+            //-------------- 글 입력 버튼 클릭  --------------------
+            $("#wirte_input_btuuon").click(function () {
+
+                var text = $('#wirte_input_box').val();
+                if (text != "") {
+                    if (write_page == 1) $("#write_textBox1").text(text);
+                    else if (write_page == 2) $("#write_textBox2").text(text);
+                    else if (write_page == 3) $("#write_textBox3").text(text);
+                }
+
+                $('#wirte_input_box').val("");
+
+                myreed_tab_flag = "false";
+
+            });
+            //---------------------------------------------------------------
+
+
+            //-------------- 연관마음글 보기/쓰기 버튼 클릭  --------------------
+            $("#view_bundle_btuuon").click(function () {
+
+                $("#main-container").css("display", "none");
+                $("#bundle-container").css("display", "block");
+
+                view_bundle_from_readPage_flag = "true";
+                clicMainContent_flag = "false";
+
+
+            });
+            //---------------------------------------------------------------
+
+
+            $("#write_button_next").click(function () { // 글 넥스트버튼
+
+                $('#write_button_prev').css("display", "block");
+                write_page++;
+                $("#write-navtab").slideDown("fast");
+                $('#wirte_input_box').val("");
+
+                if (write_page == 3) $("#write_button_next").css("display", "none");
+
+            });
+
+            $("#write_button_prev").click(function () { // 글 prev버튼
+
+                $("#write-navtab").slideDown("fast");
+                write_page--;
+                $('#wirte_input_box').val("");
+
+                if (write_page < 3) {
+                    $("#write_button_next").css("display", "block");
+                    if (write_page == 1) $('#write_button_prev').css("display", "none");
+                }
+
+            });
+
+
+            $("#wirte_input_box").click(function () { //글 수정
+
+                var text = "";
+                if (write_page == 1) text = $("#write_textBox1").text();
+                else if (write_page == 2) text = $("#write_textBox2").text();
+                else if (write_page == 3) text = $("#write_textBox3").text();
+
+                if (text != "") $('#wirte_input_box').val(text);
+
+                $("#wirte_input_box").scrollTop(10000);
+            });
+
+
+
+
+            $("#follow_heartBt").click(function (e) { // 마음 팔로우 버튼
+                $(this).text("팔로잉");
+                return false;
+            });
+
+
+
+            $("#myreed-nav-li_tag").click(function () { // 마이리드1 태그 메뉴클릭
+
+                $("#myreed-nav-li_tag").css("color", "#1C9495");
+                $("#myreed-nav-li_heart").css("color", "#A6A6A6");
+                $("#myreed-nav-li_alarm").css("color", "#A6A6A6");
+
+                $("#myreed-nav-li_tag").css("border-color", "#1C9495");
+                $("#myreed-nav-li_alarm").css("border-color", "transparent");
+                $("#myreed-nav-li_heart").css("border-color", "transparent");
+
+                $("#mytag_content").css("display", "block");
+                $("#mytag-list-layout").css("display", "block");
+                $("#myalarm_content").css("display", "none");
+                $("#myalarm-list-layout").css("display", "none");
+
+                $("#myheart_content").css("display", "none");
+                $("#myheart-list-layout").css("display", "none");
+
+            });
+
+            $("#myreed-nav-li_heart").click(function () { // 마이리드2 마음 메뉴클릭
+
+                $("#myreed-nav-li_tag").css("color", "#A6A6A6");
+                $("#myreed-nav-li_heart").css("color", "#1C9495");
+                $("#myreed-nav-li_alarm").css("color", "#A6A6A6");
+
+
+                $("#myreed-nav-li_heart").css("border-color", "#1C9495");
+                $("#myreed-nav-li_tag").css("border-color", "transparent");
+                $("#myreed-nav-li_alarm").css("border-color", "transparent");
+
+
+                $("#mytag_content").css("display", "none");
+                $("#mytag-list-layout").css("display", "none");
+                $("#myalarm_content").css("display", "none");
+                $("#myalarm-list-layout").css("display", "none");
+
+
+                $("#myheart_content").css("display", "block");
+                $("#myheart-list-layout").css("display", "block");
+
+
+            });
+
+            $("#myreed-nav-li_alarm").click(function () { // 마이리드3 알림 메뉴클릭
+
+                $("#myreed-nav-li_tag").css("color", "#A6A6A6");
+                $("#myreed-nav-li_heart").css("color", "#A6A6A6");
+                $("#myreed-nav-li_alarm").css("color", "#1C9495");
+
+                $("#myreed-nav-li_alarm").css("border-color", "#1C9495");
+                $("#myreed-nav-li_tag").css("border-color", "transparent");
+                $("#myreed-nav-li_heart").css("border-color", "transparent");
+
+                $("#mytag_content").css("display", "none");
+                $("#mytag-list-layout").css("display", "none");
+                $("#myalarm_content").css("display", "block");
+                $("#myalarm-list-layout").css("display", "block");
+
+                $("#myheart_content").css("display", "none");
+                $("#myheart-list-layout").css("display", "none");
+
+            });
+
+
+            $("#search-nav-li_tag").click(function () { // 태그검색 [태그] 메뉴클릭
+
+                $("#tagKeyword").css("display", "block");
+                $("#heartKeyword").css("display", "none");
+
+                $("#search-nav-li_tag").css("color", "#1C9495");
+                $("#search-nav-li_heart").css("color", "#A6A6A6");
+                $("#single_green").css("display", "none");
+                $("#single_gray").css("display", "inline-block");
+
+                $("#search-nav-li_tag").css("border-color", "#1C9495");
+                $("#search-nav-li_heart").css("border-color", "transparent");
+
+
+                //레이아웃
+                $("#search_user_div").css("display", "none");
+                $("#search_tag_div").css("display", "block");
+
+            });
+
+
+
+            // 태그검색 [마음] 메뉴클릭
+            $("#search-nav-li_heart").click(function () {
+
+                $("#tagKeyword").css("display", "none");
+                $("#heartKeyword").css("display", "block");
+
+                $("#search-nav-li_heart").css("color", "#1C9495");
+                $("#search-nav-li_tag").css("color", "#A6A6A6");
+                $("#single_green").css("display", "inline-block");
+                $("#single_gray").css("display", "none");
+                $("#search-nav-li_heart").css("border-color", "#1C9495");
+                $("#search-nav-li_tag").css("border-color", "transparent");
+
+                //레이아웃
+                $("#search_user_div").css("display", "block");
+                $("#search_tag_div").css("display", "none");
+
+            });
+
+
+            // 최신마음 보기 클릭
+            $("#recent_heart_text").click(function () {
+
+                $("#recent_heart_text").css("color", "#A6A6A6");
+                $("#fabular_heart_text").css("color", "#D2D2D2");
+
+                $("#recent_gallery").css("display", "block");
+                $("#fabular_gallery").css("display", "none");
+            });
+
+
+            // 인기마음 보기 클릭
+            $("#fabular_heart_text").click(function () {
+
+                $("#fabular_heart_text").css("color", "#A6A6A6");
+                $("#recent_heart_text").css("color", "#D2D2D2");
+
+                $("#recent_gallery").css("display", "none");
+                $("#fabular_gallery").css("display", "block");
+            });
+
+
+            $("#touchSlider4").touchSlider({
+                view: 3,
+                btn_prev: $("#touchSlider4").next().find(".btn_prev"),
+                btn_next: $("#touchSlider4").next().find(".btn_next")
+            });
+
+
+            // 마음글 컨텐츠 원클릭
+            $("#read_box").click(function () {
+
+                if (diff >= 250) {
+                    if (tab_readbox_flag == "false") {
+                        $("nav").css("display", "block");
+                        $("#read-header").slideDown("fast");
+                        $("#read-navtab-bottom").slideDown("fast");
+
+                        tab_readbox_flag = "true";
+                    } else {
+                        $("#read-header").slideUp("fast");
+                        $("#read-navtab-bottom").slideUp("fast");
+                        tab_readbox_flag = "false";
+                    }
+                }
+            });
+
+
+
+
+            //----------------   엮은마음글 쓰기 버튼 클릭  ---------------------------
+            $("#add_write_bt").click(function () {
+
+                $("#main-container").css("display", "block");
+                $("#bundle-container").css("display", "none");
+
+                $("#read-header").css("display", "none");
+                $("#read-navtab-bottom").css("display", "none");
+
+                $(".tab_plus").click();
+                $("#back_mainButton").css("display", "block");
+            });
+
+
+            // 팔로잉태그 리스트 항목 클릭
+            $(".tagList-item").click(function () {
+
+                tagList_item_flag = "true";
+                main_contentClick();
+                toFirstSlide();
+            });
+
+
+            // 팔로잉 마음 리스트 항목 클릭 
+            $(".heartList-item").click(function () {
+
+                heartList_item_flag = "true";
+                main_contentClick();
+                toFirstSlide();
+            });
+
+
+            // 엮임글 알림 항목 클릭
+            $(".alarmList-item").click(function () {
+                alarm_item_flag = "true";
+                view_bundle_page();
+            });
+
+
+            // 엮임글 컨텐츠 항목 클릭
+            $(".bundleList-item").click(function () {
+
+                bundle_item_flag = "true";
+                $("#bundle-container").css("display", "none");
+                $("#main-container").css("display", "block");
+
+
+                main_contentClick();
+
+                toFirstSlide();
+            });
+
+
+            $(".bundleCall_from_heartList-item").click(function () {
+
+                heartList_item_flag = "true";
+                view_bundle_page();
+            });
+
+            // 작성자 이름 클릭
+            $(".username").click(function (event) {
+
+
+                $("#mytopbox").css("display", "block");
+                $("#hashtopbox").css("display", "none");
+                $("#comment").text("이야기 100");
+
+                $("h3").text("");
+                $(".centerTitle").css("display", "inline-block");
+
+
+                mytopbox_title = $(this).text();
+
+                user_box_flag = "true";
+                tag_box_flag = "false";
+
+            });
+
+            // 태그박스 클릭
+            $(".tag_box").click(function () {
+
+                //moveToMain();
+                $("#mytopbox").css("display", "none");
+                $("#hashtopbox").css("display", "block");
+                $(".centerTitle").css("display", "none");
+                $("#comment").text("이야기 100");
+
+                tag_box_text = $(this).text();
+                tag_box_flag = "true";
+                user_box_flag = "false";
+
+            });
+
+
+
+            $(".search_TagList_Item").click(function () {
+
+                $("h3").css("display", "none");
+
+                $("#mytopbox").css("display", "none");
+                $("#hashtopbox").css("display", "block");
+                $(".centerTitle").css("display", "none");
+                $("#comment").text("이야기 100");
+
+                tag_box_text = $(this).text();
+                //   tag_box_flag = "true";
+                // user_box_flag = "false";
+
+                $(".tab_main").click();
+                $("#nav_tab_search").removeClass("active");
+                $("#nav_tab_main").addClass("active");
+                $("#main_tag_title").text($(this).children(".tag_in_search_TagList_Item").text());
+
+            });
+
+            $(".search_UserList_Item").click(function () {
+
+
+                $("h3").css("display", "none");
+
+                $("#mytopbox").css("display", "block");
+                $("#hashtopbox").css("display", "none");
+                $("#comment").text("이야기 100");
+
+                $("h3").text("");
+                $(".centerTitle").css("display", "inline-block");
+
+
+                mytopbox_title = $(this).text();
+
+                //user_box_flag = "true";
+                // tag_box_flag = "false";
+
+                $(".tab_main").click();
+                $("#nav_tab_search").removeClass("active");
+                $("#nav_tab_main").addClass("active");
+                $("#mytopbox_title").text($(this).children(".user_in_search_TagList_Item").text());
+
+            });
+
+
+
+            $("#tagFollowBt").click(function () {
+
+
+                $(this).text("팔로잉");
+
+            });
+
+            $("#userFollowBt").click(function () {
+
+
+                $(this).text("팔로잉");
+
+            });
+
+
+            // 설정버튼 클릭
+            $("#openSettingBt").click(function () {
+
+                $('#mask').css("display", "none");
+                $('#configModal').css("display", "none");
+                $("#mainSettingLayout").css("display", "block");
+
+            });
+
+            
+           // 설정버튼 뒤로클릭
+            $("#mainSettingBackBt").click(function () { 
+                $("#mainSettingLayout").css("display", "none");
+
+            });
+
+
+
+
+
+
+
+            // 더블클릭 시 좋아요 기능
+            (function ($) {
+                $.fn.doubleTap = function (doubleTapCallback) {
+                    return this.each(function (e) {
+                        var elm = this;
+                        var lastTap = 0;
+
+                        $(elm).bind('vmousedown', function (e) {
+                            var now = (new Date()).valueOf();
+                            diff = (now - lastTap);
+                            lastTap = now;
+
+                            if (diff < 250) {
+
+                                if ($.isFunction(doubleTapCallback)) {
+                                    doubleTapCallback.call(elm);
+                                }
+                            }
+
+                        });
+                    });
+                }
+            })(jQuery);
+
+            // 'this' is the element that was double tap
+            $("#read_box").doubleTap(function () {
+
+
+                $("#thankyou").fadeIn(300);
+                var thankyou = $("#thankyou");
+
+
+                $("#thankyou").fadeOut(300);
+                $("#heart").css("display", "none");
+                $("#fullHeart").css("display", "block");
+
+
+            });
+
+
+
+
+
+        });
+    </script>
+
+
+    <!-- 리사이징 갤러리 사용하기위한 참조파일 -->
+    <link rel="stylesheet" href="portfolio.jquery.css">
+    <script src="portfolio.jquery.js"></script>
+    <link rel="stylesheet" href="portfolio.jquery2.css">
+    <script src="portfolio.jquery2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.thumbs').portfolio({
+                cols: 4,
+                transition: 'slideDown'
+            });
+        });
+    </script>
+
+
+
+    <script>
+        function wrapWindowByMask() {
+            //화면의 높이와 너비를 구한다.
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+
+            //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+            $('#mask').css({
+                'width': maskWidth,
+                'height': maskHeight
+            });
+            //마스크의 투명도 처리
+            $('#mask').fadeTo("fast", 0.35);
+            $('#modal').css({
+                'margin-left': (maskWidth * 0.3) / 2,
+                'margin-right': (maskWidth * 0.3) / 2
+            });
+            $('#modal').css('margin-top', (maskHeight - $('#modal').height()) / 3);
+
+        }
+
+        $(document).ready(function () {
+            //wrapWindowByMask();
+            //불투명 배경 띄우기
+
+
+            $('.openMask').click(function (e) {
+                e.preventDefault();
+                wrapWindowByMask();
+            });
+
+
+        });
+
+        // 팝업 , 불투명 배경 띄우기
+        function clicktest() {
+            $('#modal').show();
+            wrapWindowByMask();
+        }
+
+        function btnexit() {
+            $('#modal').hide();
+            $('#mask').hide();
+
+        }
+    </script>
+
+
+    <script>
+        function wrapWindowByMask2() {
+            //화면의 높이와 너비를 구한다.
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+
+            //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+            $('#mask').css({
+                'width': maskWidth,
+                'height': maskHeight
+            });
+            //마스크의 투명도 처리
+            $('#mask').fadeTo("fast", 0.35);
+
+
+        }
+
+        $(document).ready(function () {
+
+
+            $('.openMask').click(function (e) {
+                e.preventDefault();
+                wrapWindowByMask2();
+            });
+
+
+            $('#mask').click(function () {
+
+
+                if ($('#configModal').css("display") == "block") {
+                    $('#configModal').slideUp("fast");
+                    $('#mask').hide();
+                }
+
+            });
+
+
+        });
+
+        // 팝업 , 불투명 배경 띄우기
+        function clicktest2() {
+
+
+            $('#configModal').slideDown("fast");
+            wrapWindowByMask2();
+
+
+
+        }
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="./css/swiper.css">
+
+
+    <!-- 스와이퍼 styles -->
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        
+        @media (min-width:100px) and (max-width:360px) {
+            pre {
+                font-size: 15px;
+            }
+        }
+        
+        @media (min-width:361px) and (max-width:399px) {
+            pre {
+                font-size: 15px;
+            }
+        }
+        
+        @media (min-width:400px) and (max-width:439px) {
+            pre {
+                font-size: 18px;
+            }
+        }
+        
+        @media (min-width:440px) {
+            pre {
+                font-size: 20px;
+            }
+        }
+    </style>
+
+
+
+
+
+</head>
+
+
+<body oncontextmenu="reutrn false" ondragstart="return false" onselectstart="return false" style="width:100%; overflow-y:hidden; ">
+
+
+    <!-- Modal -->
+    <div id="mask"></div>
+
+    <div style="position: absolute; background-color: #EAEAEA; width: 70%; border-radius:5px;  display: none; z-index:10001; " id="modal">
+
+        <span class="glyphicon glyphicon-remove-circle" onclick="btnexit();" style="color:white; top:7px;right:10px;position:absolute; font-size:20px;"></span>
+
+        <center>
+            <table border="0" style="width:75%;margin-top:20px; margin-bottom:15px; ">
+                <tr style="height:30px; border-width:0px 0px 1px 0px;border-style: solid; border-color: #fff;">
+                    <td style="width:50px; text-align:center; color: #1A9497;  text-align:left;">#태그</td>
+                    <td>
+                        <input type="text" id="saveTagKeyWord1" style="border:0px ;width:100%; background-color:transparent; height:30px;  ">
+                    </td>
+                </tr>
+                <tr style="height:30px; border-width:0px 0px 1px 0px;border-style: solid; border-color: #fff;">
+                    <td style="width:50px; text-align:center;  color: #1A9497;  text-align:left;">#태그</td>
+                    <td>
+                        <input type="text" id="saveTagKeyWord2" style="border:0px ;width:100%; background-color:transparent; height:30px;  ">
+                    </td>
+                </tr>
+                <tr style="height:30px; border-width:0px 0px 1px 0px;border-style: solid; border-color: #fff;">
+                    <td style="width:50px; text-align:center;  color: #1A9497;  text-align:left;">#태그</td>
+                    <td>
+                        <input type="text" id="saveTagKeyWord3" style="border:0px ;width:100%; background-color:transparent; height:30px;  ">
+                    </td>
+                </tr>
+            </table>
+
+            <button type="button" class="btn btn-info" style="width:75%;border-radius:3px; border:0px; background-color:#31C9CE; margin-bottom:15px;">업로드</button>
+        </center>
+    </div>
+
+
+
+    <div id="configModal" style="position: absolute; right:0px; top:50px; width: 200px; border-radius:0px;   display: none; z-index:10001; ">
+
+        <div class="list-group" style="border-radius:0px ; vertical-align:middle;   margin-bottom:0px; ">
+
+            <a href="#" class="list-group-item" style=" border-radius:0px; color:#fff; background-color: rgba( 140, 140, 140, 0.8); height:40px; ">마이테일</a>
+
+            <a href="#" id="openSettingBt" class="list-group-item" style="border-radius:0px; color:#fff;  background-color: rgba( 140, 140, 140, 0.8); height:40px;   ">
+			설정</a>
+            <a href="#" class="list-group-item" style="border-radius:0px; color:#fff;  background-color: rgba( 140, 140, 140, 0.8); height:40px;   ">페이스북 공식페이지</a>
+
+
+        </div>
+    </div>
+
+
+    <div id="main-container" class="container-fluid" style="padding:0px; width:100%;    ">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="width:100%;   ">
+            <div class="container-fluid" style="width:100%;  padding:0px; margin:0px;">
+
+
+                <!-- 일반헤더 -->
+                <div class="navbar-header" id="default-header" style="background-color:#31C9CE; width:100%;  padding:0px; margin:0px;">
+                    <span class="navbar-setting glyphicon glyphicon glyphicon-cog " style="color:white; float:right;" onclick="clicktest2();"></span>
+                    <a class="navbar-brand" href="./mainpage.html" style="color:#fff;  margin-left:3px;"><b>리드테일</b></a>
+                </div>
+
+
+                <!-- 테마선택용 헤더-->
+                <div class="navbar-header" id="write-theme-header" style="display:none; background-color:#31C9CE; width:100%; padding:0px; margin:0px;">
+
+                    <a id="back_mainButton" class="navbar-brand" href="#" onClick="backButton_inSelectThemeHeader()" style="display:none; padding-right:0px;">
+                        <b> <font size="3" >
+						 <span class="glyphicon  glyphicon glyphicon-arrow-left" style="color: #fff; font-weight:bold; margin-left:3px;" ></span> </font></b>
+                    </a>
+                    <span class="navbar-brand" id="write-header-title" style="color:white; margin-left:3px;font-weight:bold; ">이야기 테마선택</span>
+
+                </div>
+
+
+                <!-- 글작성용 헤더-->
+                <div class="navbar-header" id="write-header" style="display:none; background-color:#31C9CE; width:100%; padding:0px; margin:0px;">
+                    <a class="navbar-brand" href="#" onClick="backButton_inWriteHeader()">
+                        <b> <font size="3" >
+						 <span class="glyphicon  glyphicon glyphicon-arrow-left" style="color: #fff; font-weight:bold;  margin-left:3px; margin-right:3px;" ></span> </font></b>
+                    </a>
+                    <span class="navbar-brand" id="write-header-title" style="color:white; padding-left:0px;font-weight:bold; ">이야기쓰기</span>
+
+                    <span class="navbar-setting" id="write-header-confirm-text" style="color:white;font-weight:bold;font-size:17px;  float:right;">
+					<span onclick="clicktest();">완료</span>
+                    </span>
+
+
+                </div>
+
+
+                <!-- 글읽기용 헤더-->
+                <div class="navbar-header " id="read-header" style="display:none;    background-color: rgba( 255, 255, 255, 0.8 );  width:100%;padding:0px; margin:0px;">
+
+                    <a id="read-header-back" class="navbar-brand" href="#" data-toggle="pill" style="color: #31C9CE; " onClick="read_backClick()">
+                        <b> <font size="3" >
+						 <span class="glyphicon  glyphicon glyphicon-arrow-left " style=" margin-left:3px; margin-right:3px;"  ></span> </font> </b>
+                    </a>
+                    <span class="navbar-brand" style="color: #31C9CE; padding-left:0px;font-weight: bold; padding-right:3px; ">블루베리</span>
+                    <span class="navbar-setting glyphicon glyphicon-option-vertical" style="color: #31C9CE;"></span>
+                </div>
+
+
+                <div class="collapse navbar-csollapse" id="myNavbar"></div>
+            </div>
+        </nav>
+        <div class="tabbable tabs-below">
+            <div class="tab-content " style="margin-bottom:0px; overflow-y: hidden; padding-left:0px; padding-right:0px; ">
+
+                <div class="tab-pane active" id="tab_main" style="height:100%; overflow-y: auto;    ">
+
+                    <div id="main_top">
+
+                        <!-- 태그메인 팔로잉박스 -->
+                        <div id="hashtopbox" class="bgBlur" style="display: none;">
+                            <div style="width:100%;height:100%; background-color: rgba( 255, 255, 255, 0.5 );">
+                                <div style=" width:100%; height:40px; vertical-align:middle; padding-top:30px;">
+                                    <font color="#1B0075" size="4px" style=" padding-top:5px;"><b id="main_tag_title" >#이별</b></font>
+                                </div>
+                                <div style="height:42px; padding-top:30px;  ">
+                                    <button id="tagFollowBt" type="button" class="btn btn-info" style="border-radius:0px; border:0px; font-weight:bold; ">+ 태그 팔로우</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 유저메인 팔로잉박스 -->
+                        <div id="mytopbox" class="bgBlur" style="display:none;  ">
+                            <div style="width:100%;height:100%; background-color: rgba( 255, 255, 255, 0.5 );">
+
+                                <div style=" width:100%; height:80px; text-align:center; padding-top:20px;">
+                                    <div class="img-circular" style="margin:0 auto; width:50px; height:50px;">&nbsp;</div>
+                                    <div style="margin-top:6px;"><font color="#1B0075" size="4px"><b id="mytopbox_title" >유저네임</b></font></div>
+                                </div>
+                                <div style="height:60px; padding-top:28px; text-align:center;  ">
+                                    <button type="button" id="userFollowBt" class="btn btn-info" style="border-radius:0px; border:0px; font-weight:bold; background-color: #FFB2F5; ">+ 마음 팔로우</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="recent_fabular_txtBox">
+                            <div id="comment" style="float:left; margin-left:10px;">위로받고 싶은 우리들 이야기</div>
+                            <div id="fabular_heart_text" style="width:50px; float:right;">HOT</div>
+                            <div id="recent_heart_text" style="width:50px; float:right;">NEW</div>
+                        </div>
+
+
+                        <!-- 메인페이지 최신 마음글 갤러리 -->
+                        <ul id="recent_gallery" class="thumbs2" style="border: 0px;">
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb1" class="thumbnail" style="background-image: url('images/thumb1.jpg'); text-align: center;">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb2" class="thumbnail" style="background-image: url('images/thumb2.jpg');">
+
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb3" class="thumbnail" style="background-image: url('images/thumb3.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb4" class="thumbnail" style="background-image: url('images/thumb4.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb5" class="thumbnail" style="background-image: url('images/thumb5.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb6" class="thumbnail" style="background-image: url('images/thumb6.jpg')">
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #최신사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #최신사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <!-- 최신마음글 갤러리 끝-->
+
+
+                        <!-- 메인페이지 인기 마음글 갤러리 -->
+                        <ul id="fabular_gallery" class="thumbs2" style="display:none;">
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb1" class="thumbnail" style="background-image: url('images/thumb3.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb2" class="thumbnail" style="background-image: url('images/thumb2.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb3" class="thumbnail" style="background-image: url('images/thumb1.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb4" class="thumbnail" style="background-image: url('images/thumb4.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb5" class="thumbnail" style="background-image: url('images/thumb5.jpg')">
+
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+                            <li class="thumbs_li_main" onClick="clicMainContent()">
+                                <a href="#thumb6" class="thumbnail" style="background-image: url('images/thumb6.jpg')">
+                                    <h3 style=" position: absolute;    bottom: 0px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 20px;   left: 0px;"> #인기사랑해</h3>
+                                    <h3 style=" position: absolute;    bottom: 40px;   left: 0px;"> #인기사랑해</h3>
+                                    <div class="centerTitle_layout"><span class="centerTitle">#사랑2</span> </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <!-- 인기 마음글 갤러리 끝-->
+
+
+                    </div>
+                    <!-- main_top -->
+
+                    <!----------------------------- 땡큐 애니메이션   ------------------------------------->
+                    <div id="thankyou" style="display:none; position:absolute; width:100%; z-index:1000; text-align:center; top:100px;">
+                        <img src="./svg/fullheart.svg" width="150px" height="150px" style="margin: 0 auto;" />
+                    </div>
+
+                    <!--  글읽기  Swiper -->
+                    <div id="read_box" style="width:100%;height:100%;">
+
+                        <div class="swiper-container2" style="height:100%; ">
+
+                            <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+
+                                    <div style="position:relative; width:100%; ">
+
+                                        <img src="./images/testbg1.jpg" width="100%">
+
+
+                                    </div>
+
+                                    <div>
+                                        <pre style="border:0px; background-color:#fff; ">   ​​
+그대여 아무 걱정하지 말아요, 우리 함께 노래합시다
+그대의 아픈 기억들 모두 그대여, 그대의 가슴 깊이 묻어버리고
+지나간 것은 지나간 대로, 그런 의미가 있죠   </pre>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+                                    <div><img src="./images/testbg2.jpg" width="100%"></div>
+                                    <div>
+                                        <pre style="border:0px; background-color:#fff;">   ​​
+그대의 힘든 얘기들 모두 그대여, 그대의 탓으로 훌훌 털어버리고 
+
+지나간 것은, 지나간 대로 그런 의미가 있죠
+우리 다함께 노래합시다, 후회없이 꿈을 꾸었다 말해요  </pre>
+
+                                    </div>
+
+                                </div>
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+                                    <div><img src="./images/testbg3.jpg" width="100%"></div>
+                                    <div>
+                                        <pre style="border:0px; background-color:#fff;">   ​​
+지나간 것은 지나간 대로, 그런 의미가 있죠
+우리 다함께 노래합시다, 후회없이 꿈을 꾸었다 말해요
+지나간 것은 지나간 대로, 그런 의미가 있죠
+우리 다함께 노래합시다, 후회없이 꿈을 꾸었다 말해요
+우리 다 함께 노래합시다, 새로운 꿈을 꾸겠다 말해요 </pre>
+
+
+                                    </div>
+                                </div>
+                                <!-- 마음글 읽기  마지막 페이지 -->
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+
+                                    <div class="img-circular" style="width:100px; height:100px; margin-left:auto; margin-right:auto; margin-top:100px;">&nbsp;</div>
+                                    <div style="color:#31C9CE;font-weight:bold;font-size:40px;margin-top:10px;">
+                                        블루베리
+                                    </div>
+                                    <br>
+                                    <br>
+
+                                    <pre style="border:0px; background-color:#fff;">블루베리님의 마음을 담아보세요</pre>
+                                    <button type="button" id="follow_heartBt" class="btn btn-info" style="border-radius:0px; background-color: #FFB2F5; border:0px; ">+ 마음 팔로우</button>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Add Pagination -->
+                            <!--	<div class="swiper-pagination"></div>-->
+                            <!-- Add Arrows -->
+                            <div class="swiper-button-next swiper-button-black" style="display:none;" id="swiper-next"></div>
+                            <div class="swiper-button-prev swiper-button-black" style="display:none;" id="swiper-prev"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <!----------------------------------- 글쓰기 탭 (테마선택) 시작-------------------------------------------------------------->
+                <div class="tab-pane active" id="tab_plus" style="height:100% ; overflow-y: auto;">
+
+                    <div id="theme_galleryBox">
+                        <ul id="tab_plus_theme_ul" class="thumbs" style="padding:6px; height:100%;">
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb1" class="thumbnail2" style="background-image: url('images/plus1.jpg');">
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb2" class="thumbnail2" style="background-image: url('images/plus2.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb3" class="thumbnail2" style="background-image: url('images/plus3.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb4" class="thumbnail2" style="background-image: url('images/plus4.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb5" class="thumbnail2" style="background-image: url('images/plus5.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb6" class="thumbnail2" style="background-image: url('images/plus6.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb7" class="thumbnail2" style="background-image: url('images/plus7.jpg')">
+
+                                </a>
+                            </li>
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb8" class="thumbnail2" style="background-image: url('images/plus8.jpg')">
+
+                                </a>
+                            </li>
+
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb8" class="thumbnail2" style="background-image: url('images/plus8.jpg')">
+
+                                </a>
+                            </li>
+
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb8" class="thumbnail2" style="background-image: url('images/plus8.jpg')">
+
+                                </a>
+                            </li>
+
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb8" class="thumbnail2" style="background-image: url('images/plus8.jpg')">
+
+                                </a>
+                            </li>
+
+                            <li class="thumbs_li" onClick="sub_themeClick()">
+                                <a href="#thumb8" class="thumbnail2" style="background-image: url('images/plus8.jpg')">
+
+                                </a>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <!----------------------------------- 글쓰기 탭 (글작성) 시작-------------------------------------------------------------->
+                    <!-- Swiper -->
+                    <div id="write_box" style="height:100%;">
+
+                        <div class="swiper-container" style="height:100%; overflow-y:auto;">
+
+                            <div class="swiper-wrapper">
+
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+                                    <div>
+                                        <img src="./images/testbg1.jpg" width="100%">
+                                    </div>
+                                    <div style="margin-top:10px;">
+                                        <pre class="write_textBox" id="write_textBox2" style="background-color:#fff; border:0px;"></pre>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+                                    <div>
+                                        <img src="./images/testbg2.jpg" width="100%">
+                                    </div>
+                                    <div style="margin-top:10px;">
+                                        <pre class="write_textBox" id="write_textBox2" style="background-color:#fff; border:0px;"></pre>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide" style="display:table-cell;vertical-align:top;">
+                                    <div>
+                                        <img src="./images/testbg3.jpg" width="100%">
+                                    </div>
+                                    <div style="margin-top:10px;">
+                                        <pre class="write_textBox" id="write_textBox3" style="background-color:#fff; border:0px;"></pre>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="swiper-button-next swiper-button-black" style="display:none;" id="write_button_next"></div>
+                            <div class="swiper-button-prev swiper-button-black" style="display:none;" id="write_button_prev"></div>
+                        </div>
+                    </div>
+                    <!----------------------------------- 글쓰기 탭 (글작성) 끝-------------------------------------------------------------->
+                </div>
+
+
+                <!----------------------------------- 글쓰기 탭 (테마선택) 끝-------------------------------------------------------------->
+
+
+
+
+
+
+                <!----------------------------------- 해쉬태그 검색 시작-------------------------------------------------------------->
+                <div class="tab-pane" id="tab_search">
+                    <table style="width:100%; height:50px; margin-top:0px; background-color: #BDBDBD;">
+                        <tr>
+                            <td width="50px" align="center">
+                                <span class="glyphicon glyphicon-search" style="color:white"></span>
+                            </td>
+                            <td>
+                                <input type="text" id="tagKeyword" placeholder=" #태그 검색어" style="border-width:0px; width:100%; height:34px; background-color:transparent; ">
+                                <input type="text" id="heartKeyword" placeholder="마음 검색어" style="border-width:0px; width:100%; height:34px; background-color:transparent; display:none;">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div style="position: relative; width:100%; height:40px; background-color:#F6F6F6;  border-width:0px;  border-style: solid; border-color: #D5D5D5;  padding-top:10px; ">
+                        <div class="search-nav-li" id="search-nav-li_tag" style="color:#1C9495; border-color:#1C9495"># 태그</div>
+                        <div class="search-nav-li" id="search-nav-li_heart">
+                            <img src="./svg/single_green.svg " id="single_green" width="16px" height="16px" style="margin-right:3px; display:none" />
+                            <img src="./svg/single_gray.svg " id="single_gray" width="16px" height="16px" style="margin-right:3px;" />마음
+                        </div>
+
+                    </div>
+
+                    <div id="search_tag_div" class="list-group" style="border-radius:0px ;">
+
+
+                        <!-- 태그검색 결과 -->
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_TagList_Item" style="border-radius:0px ;">
+
+                            <span class="tag_in_search_TagList_Item">#사랑</span> <span class="badge">44</span>
+                        </a>
+
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_TagList_Item" style="border-radius:0px ;">
+
+                            <span class="tag_in_search_TagList_Item">#이별다시사랑</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_TagList_Item" style="border-radius:0px ;">
+
+                            <span class="tag_in_search_TagList_Item">#우리엄마</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_TagList_Item" style="border-radius:0px ;">
+
+                            <span class="tag_in_search_TagList_Item">#행복하자</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_TagList_Item" style="border-radius:0px ;">
+
+                            <span class="tag_in_search_TagList_Item">#아프지말고</span> <span class="badge">44</span>
+                        </a>
+
+                    </div>
+
+                    <!-- 마음검색 결과 -->
+                    <div id="search_user_div" class="list-group" style="border-radius:0px ; display:none;">
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_UserList_Item" style="border-radius:0px ;">
+
+                            <span class="user_in_search_TagList_Item">라즈베리</span> <span class="badge">44</span>
+                        </a>
+
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_UserList_Item" style="border-radius:0px ;">
+
+                            <span class="user_in_search_TagList_Item">블루베리</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_UserList_Item" style="border-radius:0px ;">
+
+                            <span class="user_in_search_TagList_Item">우리엄마</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_UserList_Item" style="border-radius:0px ;">
+
+                            <span class="user_in_search_TagList_Item">지구사랑</span> <span class="badge">44</span>
+                        </a>
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item search_UserList_Item" style="border-radius:0px ;">
+
+                            <span class="user_in_search_TagList_Item">둘리둘리</span> <span class="badge">44</span>
+                        </a>
+
+                    </div>
+                </div>
+
+
+
+
+                <!--------------------------------   마이리드 탭 ------------------------------------------------------------------------------>
+                <div class="tab-pane" id="tab_myreed" style="height:100%; ">
+
+                    <div id="mytag_content_header" style="position: fixed;  top: 0px;   width:100%;height:50px; background-color:#F6F6F6;  border-width:0px 0px 1px 0px;  border-style: solid; border-color: #D5D5D5;  padding-top:17px; ">
+                        <div class="myreed-nav-li" id="myreed-nav-li_tag">태그</div>
+                        <div class="myreed-nav-li" id="myreed-nav-li_heart">마음</div>
+                        <div class="myreed-nav-li" id="myreed-nav-li_alarm" style="color:#1C9495; border-color:#1C9495">엮음</div>
+
+                    </div>
+
+
+                    <!------------------------  마이리드 태그 팔로잉 리스트뷰 ---------------->
+                    <div id="mytag_content" style=" width:100%; display:none; background-color:#FFF; height:100%; overflow-y:auto; ">
+
+                        <div style="width:100%;height:40px;background-color:#fff; border-width:0px;  border-style: solid; border-color: #D5D5D5;  padding-top:8px; padding-left:10px;font-weight:bold; color:gray; font-size:15px; margin-top:-5px;">
+
+                            # &nbsp; 45
+
+
+                        </div>
+
+                        <div id="mytag-list-layout" style="width:100%;  ">
+
+
+                            <div class="list-group" style="border-radius:0px ;  margin-bottom:0px; ">
+
+
+                                <a href="#tab_main" data-toggle="pill" class="tagList-item  list-group-item" style="border-radius:0px; padding:0px 0px 0px 0px; ">
+
+                                    <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                        <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                        <span class="username" style="float:left;font-weight:bold; color:#31C9CE;font-size:18px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                                    </div>
+                                    <div style="padding:0px 10px 2px 10px; color: #1C9495; clear:both;">
+                                        <button type="button" class="btn btn-info tag_box"> #이별택시</button>
+                                        <button type="button" class="btn btn-info tag_box"> #예랑</button>
+                                        <button type="button" class="btn btn-info tag_box"> #여름밤</button>
+                                    </div>
+
+                                    <div style="margin-top:10px;padding:0px 10px 2px 10px;">
+                                        <img src="./images/userbg/blueberry_tagbg1.jpg" style="width:100%;">
+                                    </div>
+                                    <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent;color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                                    <div style="padding:0px 10px 15px 10px;">
+                                        <img src="./svg/fullheart.svg" width="20px" height="20px" style="margin: 0 auto;" />
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:15px;">17</span>
+                                        <span style="float:right;">2015-09-23</span>
+                                    </div>
+
+
+                                </a>
+
+
+                                <a href="#tab_main" data-toggle="pill" class="tagList-item  list-group-item" style="border-radius:0px; padding:0px 0px 0px 0px;   ">
+
+                                    <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                        <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                        <span class=" username" style="float:left;font-weight:bold;color:#31C9CE;font-size:18px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                                    </div>
+                                    <div style="padding:0px 10px 2px 10px; color: #1C9495; clear:both;">
+
+                                        <button type="button" class="btn btn-info tag_box"> #이별택시</button>
+                                        <button type="button" class="btn btn-info tag_box"> #예랑</button>
+                                        <button type="button" class="btn btn-info tag_box"> #여름밤</button>
+                                    </div>
+                                    <div style="margin-top:10px;padding:0px 10px 2px 10px;"><img src="./images/userbg/blueberry_tagbg1.jpg" style="width:100%;"></div>
+                                    <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent;color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                                    <div style="padding:0px 10px 15px 10px;">
+                                        <img src="./svg/fullheart.svg" width="20px" height="20px" style="margin: 0 auto;" />
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:15px;">17</span>
+                                        <span style="float:right;">2015-09-23</span>
+                                    </div>
+
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!------------------------ 마이리드 마음글 팔로잉 리스트뷰 --------------------->
+                    <div id="myheart_content" style=" width:100%; background-color:#FFF; display:none; height:100%; overflow-y:auto;">
+
+                        <div style="width:100%;height:40px;background-color:#FFF; border-width:0px;  border-style: solid; border-color: #D5D5D5;  padding-top:8px; padding-left:10px;font-weight:bold; color:gray; font-size:15px; margin-top:-5px;">
+                            <img src="./svg/single.svg " width="20px" height="20px" style="margin-top:-3px;" /> 90
+
+
+                        </div>
+                        <div id="myheart-list-layout" style="width:100%;    ">
+
+
+                            <div class="list-group" style="border-radius:0px ;  margin-bottom:0px; ">
+
+                                <a href="#tab_main" data-toggle="pill" class="list-group-item  heartList-item" style="border-radius:0px; padding:0px 0px 0px 0px;   ">
+
+                                    <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                        <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                        <span class="  username" style="float:left;font-weight:bold; color:#31C9CE;font-size:18px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                                    </div>
+                                    <div style="padding:0px 10px 2px 10px; color: #1C9495;">
+                                        <button type="button" class="btn btn-info tag_box"> #이별택시</button>
+                                        <button type="button" class="btn btn-info tag_box"> #예랑</button>
+                                        <button type="button" class="btn btn-info tag_box"> #여름밤</button>
+                                    </div>
+                                    <div style="margin-top:10px;padding:0px 10px 2px 10px;"><img src="./images/userbg/blueberry_tagbg2.jpg" style="width:100%;"></div>
+                                    <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent; color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                                    <div style="padding:0px 10px 15px 10px;">
+                                        <img src="./svg/fullheart.svg" width="20px" height="20px" style="margin: 0 auto;" />
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:15px;">17</span>
+                                        <span style="float:right;">2015-09-23</span>
+                                    </div>
+
+
+                                </a>
+
+                                <a href="#tab_main" data-toggle="pill" class="list-group-item  heartList-item" style="border-radius:0px; padding:0px 0px 0px 0px;   ">
+
+                                    <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                        <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                        <span class=" username" style="float:left;font-weight:bold; color:#31C9CE;font-size:18px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                                    </div>
+                                    <div style="padding:0px 10px 2px 10px; color: #1C9495;">
+                                        <button type="button" class="btn btn-info tag_box"> #이별택시</button>
+                                        <button type="button" class="btn btn-info tag_box"> #예랑</button>
+                                        <button type="button" class="btn btn-info tag_box"> #여름밤</button>
+                                    </div>
+                                    <div style="margin-top:10px;padding:0px 10px 2px 10px;"><img src="./images/userbg/blueberry_tagbg2.jpg" style="width:100%;"></div>
+                                    <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent; color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                                    <div style="padding:0px 10px 15px 10px;">
+                                        <img src="./svg/fullheart.svg" width="20px" height="20px" style="margin: 0 auto;" />
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:15px;">17</span>
+                                        <span style="float:right;">2015-09-23</span>
+                                    </div>
+
+
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!------------------------ 마이리드 엮음글 알림 리스트뷰 --------------------->
+                    <div id="myalarm_content" style=" width:100%; background-color:#FFF; display:block; height:100%; overflow-y:auto; ">
+
+                        <div style="width:100%;height:40px;  background-color:#FFF; border-width:0px;  border-style: solid; border-color: #D5D5D5;  padding-top:8px; padding-left:10px;font-weight:bold; color:gray; font-size:15px; margin-top:-5px;">
+                            <img src="./svg/group.svg " width="29px" height="29px" style="margin-top:-3px;" /> 3
+
+
+                        </div>
+                        <div id="myalarm-list-layout" style="width:100%;    ">
+
+
+                            <div class="list-group" style="border-radius:0px ;  margin-bottom:0px; ">
+
+
+                                <a href="#" class="list-group-item " style="border-radius:0px; padding:0px ;  ">
+
+                                    <div class="alarmList-item" style="padding:0px; height:70px;  padding:5px;">
+
+                                        <img src="images/plus4.jpg" style="float:left; width:60px; height:60px; margin-right:5px;">
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">라즈베리</span>
+                                        <span style="margin-top:12px;margin-left:2px; font-size:14px; ">님이</span>
+
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="margin-left:2px;margin-top:12px;"> 님의 엮음에 <b>마음</b>을 엮었습니다</span>
+                                        <br>
+                                        <span style="font-size:12px; color:gray">금 오전 8:30</span>
+                                    </div>
+
+
+                                </a>
+
+
+                                <a href="#" class="list-group-item " style="border-radius:0px; padding:0px 0px 0px 0px;  ">
+
+                                    <div class="alarmList-item" style="padding:0px; height:70px;  padding:5px;">
+
+                                        <img src="images/plus5.jpg" style="float:left; width:60px; height:60px; margin-right:5px;">
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">라즈베리</span>
+                                        <span style="margin-top:12px;margin-left:2px; font-size:14px; ">님이</span>
+
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="margin-left:2px;margin-top:12px;"> 님의 엮음에 <b>고마움</b>을 전했습니다</span>
+                                        <br>
+                                        <span style="font-size:12px; color:gray">토 오후 7:30</span>
+                                    </div>
+
+                                </a>
+
+                                <a href="#" class="list-group-item " style="border-radius:0px; padding:0px ;   ">
+
+                                    <div class="alarmList-item" style="padding:0px; height:70px;  padding:5px;">
+
+                                        <img src="images/plus6.jpg" style="float:left; width:60px; height:60px; margin-right:5px;">
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">라즈베리</span>
+                                        <span style="margin-top:12px;margin-left:2px; font-size:14px; ">님이</span>
+
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="margin-left:2px;margin-top:12px;"> 님의 엮음에 <b>마음</b>을 엮었습니다</span>
+                                        <br>
+                                        <span style="font-size:12px; color:gray">금 오전 8:30</span>
+                                    </div>
+
+
+                                </a>
+
+
+                                <a href="#" class="list-group-item " style="border-radius:0px; padding:0px 0px 0px 0px;   ">
+
+                                    <div class="alarmList-item" style="padding:0px; height:70px;  padding:5px;">
+
+                                        <img src="images/plus7.jpg" style="float:left; width:60px; height:60px; margin-right:5px;">
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">라즈베리</span>
+                                        <span style="margin-top:12px;margin-left:2px; font-size:14px; ">님이</span>
+
+                                        <span style="font-weight:bold;color:#31C9CE;font-size:14px;   margin-top:12px;  ">블루베리</span>
+                                        <span style="margin-left:2px;margin-top:12px;"> 님의 엮음에 <b>고마움</b>을 전했습니다</span>
+                                        <br>
+                                        <span style="font-size:12px; color:gray">토 오후 7:30</span>
+                                    </div>
+
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-------------------------------------------------------------------------------------------------------->
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- tab content -->
+            <ul class="nav nav-tabs nav-justified navbar-fixed-bottom " style="width:100%; height:46px; padding:0px; margin:0px;" id="default-navtab">
+
+                <li id="nav_tab_main" class="active tab_main">
+                    <a href="#tab_main" data-toggle="pill">
+                        <img src="./svg/main.svg " width="29px" height="29px" style="margin-top:-3px;" />
+                    </a>
+                </li>
+
+                <li class="tab_plus">
+                    <a href="#tab_plus" data-toggle="pill">
+                        <img src="./svg/pencil.svg " width="29px" height="29px" style="margin-top:-3px;" />
+                    </a>
+                </li>
+
+                <li id="nav_tab_search" class="tab_search">
+                    <a href="#tab_search" data-toggle="pill">
+                        <img src="./svg/search.svg " width="29px" height="29px" style="margin-top:-3px;" />
+                    </a>
+                </li>
+
+                <li id="nav_tab_myreed" class="tab_myreed">
+                    <a href="#tab_myreed" data-toggle="pill">
+                        <img src="./svg/smile.svg " width="29px" height="29px" style="margin-top:-3px;" />
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-tabs nav-justified navbar-fixed-top " style="height:40px;display:none;    background-color: #000;
+						filter:alpha(opacity=70);
+						opacity: 0.7;
+						-moz-opacity:0.3;
+						  " id="read-navtab2">
+                <li class="active tab_backtomain" onClick="read_backClick()"><a href="#tab_backtomain" data-toggle="pill"><span class="glyphicon  glyphicon-th-large white" ></span></a></li>
+                <li class="tab_plus"><a href="#tab_plus" data-toggle="pill"><span class="glyphicon  glyphicon-envelope white " ></span></a></li>
+                <li class="tab_share"><a href="#tab_share" data-toggle="pill"><span class="glyphicon  glyphicon glyphicon-share "></span></a></li>
+                <li class="tab_other"><a href="#tab_c" data-toggle="pill"><span class="glyphicon  glyphicon-option-vertical"></span></a></li>
+            </ul>
+
+            <ul class="nav nav-tabs nav-justified navbar-fixed-bottom" id="write-navtab" style="height:55px;display:none;background-color:#fff;">
+                <div style="width:100%;height:100%;">
+                    <div style="width:50px; height:100%; float:right;">
+                        <button type="button" class="btn btn-info" id="wirte_input_btuuon" style="border-radius:0px; height:100%; border:0px">입력</button>
+                    </div>
+                    <div style="width:90px; height:100%; float:right; " id="wirte_input_box_div">
+                        <textarea id="wirte_input_box" style="margin:0px 0px 0px 0px; width:100%; height:100%; background-color:#fff; border-radius:0px; 
+						 border-width:1px 0px 0px 0px;  border-style: solid; border-color: #D5D5D5;"> </textarea>
+                    </div>
+                </div>
+            </ul>
+
+            <ul class="nav nav-tabs nav-justified navbar-fixed-bottom" id="read-navtab-bottom" style="height:50px;display:none;background-color:#fff;">
+                <div style="width:100%;height:100%;">
+
+                    <div style="width:25%; height:100%; float:left;  background-color: #fff;  padding-top:13px; text-align:center; 
+							 border-width:1px 0px 0px 0px;  border-style: solid; border-color: #D5D5D5;">
+                        <img id="heart" src="./svg/heart.svg" width="29px" height="29px" style="margin-left:auto;margin-right:auto;margin-top:-3px;" />
+                        <img id="fullHeart" src="./svg/fullheart.svg" width="29px" height="29px" style="display:none;margin-left:auto;margin-right:auto;margin-top:-3px;" />
+                    </div>
+
+                    <div style="width:25%; height:100%; float:right;    background-color:#fff;  padding-top:12px; text-align:center; 
+					 border-width:1px 0px 0px 0px;  border-style: solid; border-color: #D5D5D5;">
+                        <span class="glyphicon  glyphicon glyphicon-share" style="color: #31C9CE; font-size:20px;"></span>
+                    </div>
+
+                    <div style="width:50%; height:100%; float:right; border-width:1px 1px 0px 1px;  border-style: solid; border-color: #D5D5D5;">
+                        <button type="button" class="btn btn-info" id="view_bundle_btuuon" style="border-radius:0px; width:100%;height:100%; border:0px; background-color:#fff ;font-weight: bold; color: #31C9CE;  ">엮인 이야기 9</button>
+                    </div>
+
+                </div>
+            </ul>
+
+
+
+        </div>
+    </div>
+    <!-- end of container -->
+
+
+    <!-- 마음 엮음글 컨테이너 시작 -->
+    <div id="bundle-container" style="width:100%; height:100%;display:none; ">
+
+        <div style="position: fixed;  top: 0px; width:100%; height:50px;  background-color: #88E0E2; ">
+
+            <div style="position:absolute; display:table-cell; width:100%;   color: #fff; margin-top: 13px; font-size:18px; font-weight:bold; text-align:center;">이야기 엮음 (블루베리<font size="2px">님이 시작</font>)</div>
+
+            <a id="bundle-back-button" href="#tab_myreed" data-toggle="pill">
+                <div class="glyphicon  glyphicon glyphicon-arrow-left" style="float:left; font-size:16px; color: #fff; font-weight:bold;  margin-top:17px;margin-left:15px; margin-right:15px;" onClick="backButton_inBundleHeader()"></div>
+            </a>
+        </div>
+
+
+        <div id="bundle-inner-container" style="width:100%;  overflow-y:auto; margin-top:50px;">
+
+            <div id="hashtopbox" class="bgBlur">
+                <div style="width:100%;height:100%; background-color: rgba( 255, 255, 255, 0.5 );">
+                    <div style="width:100%; padding-top:30px;">
+                        이야기 주제
+                    </div>
+                    <div style="width:100%; padding-top:13px;">
+                        <span style="color:#1B0075; font-weight:bold; font-size:18px;"> #이별    </span>
+                        <span style="color:#1B0075; font-weight:bold; font-size:18px;"> #이별택시</span>
+                        <span style="color:#1B0075; font-weight:bold; font-size:18px;"> #행복    </span>
+                    </div>
+                </div>
+            </div>
+
+            <div style=" width:100%; background-color:gray;">
+
+                <div style="width:100%;height:40px;background-color:#fff; border-width:0px 0px 0px 0px;  border-style: solid; border-color: #D5D5D5;  padding-top:12px; padding-left:10px;font-weight:bold; color:gray; font-size:15px; margin-top:-5px;">엮인 이야기&nbsp; 7
+
+
+                </div>
+
+                <div id="mytag-list-layout" style="width:100%;  ">
+
+
+                    <div class="list-group" style="border-radius:0px ;  margin-bottom:0px; ">
+
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item bundleList-item" style="border-radius:0px; padding:0px 0px 0px 0px; background-color:#fff; ">
+
+                            <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                <span class="username" style="float:left;font-weight:bold;color:#31C9CE;font-size:18px;   margin-top:12px;  ">블루베리</span>
+                                <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                            </div>
+                            <div style="padding:0px 10px 2px 10px; color: #1C9495; clear:both;">
+                                <span class="tag_box">#이별택시</span> <span class="tag_box"> #예랑</span> <span class="tag_box"> #여름밤 </span>
+                            </div>
+                            <div style="margin-top:10px;padding:0px 10px 2px 10px;"><img src="./images/userbg/blueberry_tagbg1.jpg" style="width:100%;"></div>
+                            <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent;color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                            <div style="padding:0px 10px 15px 10px;"><span style="font-weight:bold;color:#31C9CE;font-size:15px;">17 고마움</span> <span style="float:right;">2015-09-23</span></div>
+
+
+                        </a>
+
+
+                        <a href="#tab_main" data-toggle="pill" class="list-group-item bundleList-item" style="border-radius:0px; padding:0px 0px 0px 0px; background-color:#fff; ">
+
+                            <div style="padding:0px 0px 0px 0px; height:50px;  ">
+                                <span class="img-circular" style="float:left; width:30px; height:30px; margin-top:10px; margin-left:10px; margin-right:10px;">&nbsp;</span>
+                                <span class="username" style="float:left;font-weight:bold;color:#31C9CE;font-size:18px;   margin-top:12px;  ">라즈</span>
+                                <span style="float:right;margin-top:15px; margin-right:10px;"><b>1만2천</b> 팔로워</span>
+                            </div>
+                            <div style="padding:0px 10px 2px 10px; color: #1C9495; clear:both;">
+                                <span class="tag_box">#이별택시</span> <span class="tag_box"> #예랑</span> <span class="tag_box"> #여름밤 </span>
+                            </div>
+                            <div style="margin-top:10px;padding:0px 10px 2px 10px;"><img src="./images/userbg/blueberry_tagbg1.jpg" style="width:100%;"></div>
+                            <div style="padding:0px 10px 2px 10px;"><pre style="border:0px; margin:0px 0px 0px 0px; padding: 5px 0px 0px 0px; background-color:transparent;color:gray;">사랑했던 그 사람과 이별을 했다. 비가와서 무서워서 외로워서 괜한 기분에 뜬 눈으로 여름밤을 지새웠다. 잠들지 못해 (계속)</pre></div>
+
+                            <div style="padding:0px 10px 15px 10px;"><span style="font-weight:bold;color:#31C9CE;font-size:15px;">17 고마움</span> <span style="float:right;">2015-09-23</span></div>
+
+
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <a href="#tab_plus" data-toggle="pill">
+
+            <button id="add_write_bt" type="button" class="btn btn-info" style="position:absolute; bottom:0px; width:95%; height:43px; border-radius:3px; border:0px; margin-bottom:5px; font-weight:bold; background-color:#31C9CE">내 이야기 남기기</button>
+
+        </a>
+
+
+    </div>
+
+
+
+
+
+    <!--  메인 환경설정  -->
+    <div id="mainSettingLayout" style="position:absolute; top:0;left:0; width:100%; height:100%; overflow-y:auto;  background-color:#EAEAEA; display:none;  z-index:20000;">
+
+            <!-- 글읽기용 헤더-->
+            <div class="navbar-header " style=" position: fixed;  top: 0px; height:50px;   background-color: rgba( 93, 93, 93, 0.8 );  width:100%; margin:0px;  z-index:20000; ">
+
+                <a id="mainSettingBackBt" class="navbar-brand" style=" padding-right:0px; margin-left:-8px;">
+
+                    <span class="glyphicon  glyphicon glyphicon-arrow-left" style="color: #fff; font-weight:bold; margin-left:3px;"></span>
+                </a>
+                <span class="navbar-brand" style="color:white; margin-left:3px;font-weight:bold; margin-left:-7px; ">설정</span>
+
+            </div>
+
+    <center>
+            <div class="list-group" style="border-radius:0px; vertical-align:middle; width:90%; height:100%; background-color:#EAEAEA; margin-bottom:0px; margin-top:50px; ">
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000; text-align:left;  background-color:#EAEAEA; height:40px; margin-bottom:-5px; padding-left:0px;">관리</a>            
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">리드테일 계정 설정</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px;  border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-bottom:0px; padding-left:30px;">
+                푸시알림</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000; text-align:left;  background-color:#EAEAEA; height:40px; margin-bottom:-5px; padding-left:0px; ">지원</a>                   
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                자주묻는질문</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                문의하기</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                리드테일 탈퇴</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                버전정보</a>
+
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000; text-align:left;  background-color:#EAEAEA; height:40px; margin-bottom:-5px; padding-left:0px;">안내</a>             
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                이용안내</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                공지사항</a>
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                운영자 개별 메시지</a>        
+
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000; text-align:left;  background-color:#EAEAEA; height:40px; margin-bottom:-5px; padding-left:0px;">약관</a>                 
+                <a href="#" class="list-group-item" style="border-radius:0px; border:0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                서비스 이용약관</a>      
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px;">
+                운영정책</a>      
+
+                <a href="#" class="list-group-item" style="border-radius:0px; border-width: 1px 0px 0px 0px; color:#000;  text-align:left;   background-color:#fff height:40px; margin-top:-5px; padding-left:30px; margin-bottom:15px;">
+                개인정보 취급방침</a>                  
+
+            </div>
+    </center>
+
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="./js/swiper.min.js"></script>
+    <script src="./js/swiper.min2.js"></script>
+
+
+
+    <!-- Initialize Swiper -->
+
+    <script>
+        var swiper2 = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: false,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 30,
+            onlyExternal: true
+
+        });
+    </script>
+
+
+    <script>
+        var swiper = new Swiper('.swiper-container2', {
+            pagination: '.swiper-pagination',
+            paginationClickable: false,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            spaceBetween: 30,
+
+            onlyExternal: false
+
+        });
+
+
+        function toFirstSlide() {
+
+            swiper.update(true);
+            swiper.slideTo(0, 0, true);
+            swiper2.update(true);
+            swiper2.slideTo(0, 0, true);
+
+
+        }
+    </script>
+
+
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <filter id="blur">
+            <feGaussianBlur stdDeviation="6" />
+        </filter>
+    </svg>
+
+
+</body>
+
+</html>

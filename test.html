@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>리드테일</title>
+ <meta charset="utf-8">	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+ 
+ 
+	  <link   rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	  <link   href="http://roboto-webfont.googlecode.com/svn/trunk/roboto.all.css" rel="stylesheet" type="text/css">
+ 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" >			</script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">			</script> 
+
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	  <script type="text/javascript" src="./js/jquery.event.drag-1.5.min.js">							    </script>
+	  <script type="text/javascript" src="./js/jquery.touchSlider.js">									    </script>
+ 
+	  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>  
+ 
+ <style>
+
+li.no-child:hover, li.no-child.hover {
+  display:block;
+}
+ </style>
+
+ <script type="text/javascript">
+        $(document).ready
+		(
+			function()
+			{
+
+						$('ul li.has-children').on("touchstart", function (e) {
+						'use strict'; //satisfy code inspectors
+						var link = $(this); //preselect the link
+						if (link.hasClass('hover')) {
+							return true;
+						 } 
+						else {
+						   link.addClass('hover');
+						   $('ul > li').not(this).removeClass('hover');
+						   e.preventDefault();
+						   return false; //extra, and to make sure the function has consistent return points
+						  }
+						});
+			}	
+		);   
+
+    </script>  
+
+</head>
+
+
+<body>
+
+ 
+	
+<ul id="menu">
+<li class="no-child"><a href="#">Home</a></li>
+<li class="has-child">
+<span class="megamenu-parent-title"><a href="/about-us" title="">About Us</a></span>
+<ul class="child1">
+<li class="no-child"><a href="/about-us" title="">page</a></li>
+<li class="no-child"><a href="/about-us" title="">page1</a></li>
+</ul>
+</li>
+<li class="no-child"><a href="blog">Blog</a></li>
+</ul>
+
+
+</body>
+
+
+</html>

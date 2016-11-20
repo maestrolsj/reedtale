@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>고민읽기</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+ 
+	  <link   rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	  <link   href="http://roboto-webfont.googlecode.com/svn/trunk/roboto.all.css" rel="stylesheet" type="text/css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ 
+	<style>
+
+	/* all */
+	::-webkit-input-placeholder { color:#fff; }
+	::-moz-placeholder { color: #fff; } /* firefox 19+ */
+	:-ms-input-placeholder { color:#fff; } /* ie */
+	input:-moz-placeholder { color:#fff; }
+
+
+	.navbar{
+	  background-color: #31C9CE;
+	  border-radius:0px;
+	  border-bottom:0px;
+	   
+	}
+
+  
+
+	.navbar-inverse .navbar-nav>li>a {
+		color: #FAFAD2;
+	}
+ 
+
+ 
+	.nav-tabs{
+	  background-color: #31C9CE;
+	  border-radius:0px;
+	  border-bottom:0px;
+	     
+
+	}
+
+	.tab-content{
+		background-color:#fff;
+		color:#303136;
+		padding:5px;
+			  border-radius:0px;
+	    height:*;
+	}
+
+	.nav-tabs > li > a{
+	  border-bottom:0px;
+	  color:#fff;
+	}
+ 
+
+ 
+
+	.nav-tabs.nav-justified {
+		  width: 100%;
+		  border-bottom: 0px;
+		  border-radius:0px;
+       
+	}
+
+	.nav-tabs.nav-justified > li {
+		  display: table-cell;
+		  float: none;
+		  width: 1%;
+		  border-radius:0px;
+		  border-bottom:0px;
+			 
+	}
+
+	.nav-tabs.nav-justified > li > a {
+		  text-align: center;
+	  	  border-radius:0px;
+		  border-bottom:0px;
+	}
+	.nav-tabs.nav-justified > li > a:link {
+		  text-align: center;
+	  	  border-radius:0px;
+		  border-bottom:0px;
+	}
+ 
+ 	.navbar-setting {
+		float: right;
+		height: 50px;
+		padding: 15px 15px;
+		font-size: 18px;
+		line-height: 20px;
+	}
+ 
+ 
+	</style>
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="./css/swiper.min.css">
+
+ 
+     <!-- Demo styles -->
+    <style>
+    .tab-pane {
+         
+        height: 100%;
+    }
+ 
+    .swiper-container {
+	   
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    </style>
+
+ 
+    <script type="text/javascript">
+        $(document).ready(function() {
+             
+                 var tmp= $(window).height();         // 비동기적으로 페이지로드
+                 
+				 $(".tab-content").height( tmp -80 );  // 가로 800 세로 400 비율유지 
+
+			$(".tab_search").click(function(){
+				$("nav").css("display","none");
+				$(".tab-content").css("margin-top","-5px");
+			});
+
+			$(".tab_other").click(function(){
+				$("nav").css("display","block");
+				$(".tab-content").css("margin-top","44px");
+			});
+            
+        });   
+    </script>  
+ 
+  </head>
+
+
+<body style="overflow-y:hidden">
+<div class="container-fluid" style="padding:0px;">
+
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header ">
+
+		<span class="navbar-setting glyphicon glyphicon-cog "  style="color:white"></span>
+      <a class="navbar-brand" href="./mainpage.html" style="color:#fff;"><b>리드테일</b></a>
+    </div>
+    <div class="collapse navbar-csollapse" id="myNavbar">
+
+	 
+    </div>
+  </div>
+</nav>
+
+<div class="tabbable tabs-below">
+  
+
+	<div class="tab-content "    style=" margin-top:40px; overflow-y:auto;   padding-left:0px; padding-right:0px; "  >
+			<div class="tab-pane active" id="tab_a" >
+  
+		
+			  
+			</div>
+
+
+			<div class="tab-pane" id="tab_plus" align="center">
+               <img src="./images/sea.jpg" width="100%" style="margin-top:10px;  ">
+				<input type="text"  id="keyword" placeholder=" # 해시 검색어" style="margin-top:5px; border:0px ; background-color:transparent; width:100%; height:34px; " >
+
+			   <textarea class="form-control" rows="5" id="comment" placeholder="마음글 작성란"  style="border-radius:0px;"></textarea>
+			</div>
+
+
+			<div class="tab-pane active" id="tab_search">
+
+		 	  
+				    <!-- Swiper -->
+					<div class="swiper-container" >
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"  style="border-radius:0px; ;">
+
+								   <div   style=" width:100%; height:100%;  ">
+								   <img src="./bg/bg1.jpg" width="100%">
+									<!--<h2>나의 첫번째 이별이야기</h2> <br>
+									by 이세진<span class="glyphicon glyphicon-envelope" style="margin-left:10px;  color:blue"></span>
+									</p>-->
+								  </div>
+
+							</div>
+
+							<div class="swiper-slide"  style="border-radius:0px; ;">
+
+								   <div   style=" width:100%; height:100%;  ">
+								   <img src="./bg/bg2.jpg" width="100%">
+									<!--<h2>나의 첫번째 이별이야기</h2> <br>
+									by 이세진<span class="glyphicon glyphicon-envelope" style="margin-left:10px;  color:blue"></span>
+									</p>-->
+								  </div>
+
+							</div>
+
+							<div class="swiper-slide"  style="border-radius:0px; ;">
+
+								   <div   style=" width:100%; height:100%;  ">
+								   <img src="./bg/bg3.jpg" width="100%">
+									<!--<h2>나의 첫번째 이별이야기</h2> <br>
+									by 이세진<span class="glyphicon glyphicon-envelope" style="margin-left:10px;  color:blue"></span>
+									</p>-->
+								  </div>
+
+							</div>
+
+							<div class="swiper-slide"  style="border-radius:0px; ;">
+
+								   <div   style=" width:100%; height:100%;  ">
+								   <img src="./bg/bg4.jpg" width="100%">
+									<!--<h2>나의 첫번째 이별이야기</h2> <br>
+									by 이세진<span class="glyphicon glyphicon-envelope" style="margin-left:10px;  color:blue"></span>
+									</p>-->
+								  </div>
+
+							</div>
+
+							<div class="swiper-slide"  style="border-radius:0px; ;">
+
+								   <div   style=" width:100%; height:100%;  ">
+								   <img src="./bg/bg5.jpg" width="100%">
+									<!--<h2>나의 첫번째 이별이야기</h2> <br>
+									by 이세진<span class="glyphicon glyphicon-envelope" style="margin-left:10px;  color:blue"></span>
+									</p>-->
+								  </div>
+
+							</div>
+
+
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+					</div>
+
+
+			</div>
+			<div class="tab-pane" id="tab_c">
+				 <h4>Pane C</h4>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+					ac turpis egestas.</p>
+			</div>
+	 
+	</div><!-- tab content -->
+
+
+	<ul class="nav nav-tabs   nav-justified   navbar-fixed-bottom "  style="height:40px;"     >
+	  <li class="active tab_other"  ><a href="#tab_a" data-toggle="pill" ><span class="glyphicon glyphicon-th-large white"></span> </a></li>
+	  <li class="tab_other"><a href="#tab_plus" data-toggle="pill"><span class="glyphicon glyphicon-plus white "></span></a></li>
+	  <li class="tab_search"><a href="#tab_search" data-toggle="pill"><span class="glyphicon glyphicon-search "></span></a></li>
+	  <li class="tab_other"><a href="#tab_c" data-toggle="pill"><span class="glyphicon glyphicon-user"></span></a></li>
+	 
+	</ul>
+
+
+</div>
+
+</div><!-- end of container -->
+
+   <!-- Swiper JS -->
+    <script src="./js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+    </script>
+
+
+
+  </body>
+</html>
